@@ -25,7 +25,7 @@ namespace TestProjDevelopsToday;
 static class Program
 {
     private const int ChunkSize = 5000;
-
+    private const string DuplicatesFileName = "\\duplicates.csv";
     static async Task Main(string[] args)
     {
         Console.Write("Enter file path: ");
@@ -52,8 +52,7 @@ static class Program
         Console.WriteLine("Duplicate records: {0}", duplicateRecords.Count);
         if (duplicateRecords.Any())
         {
-            var duplicatesFileName = "\\duplicates.csv";
-            CsvHelperExtension.WriteToCsv(duplicateRecords, AppConfiguration.DirectoryPathForDuplicatesFile + duplicatesFileName);
+            CsvHelperExtension.WriteToCsv(duplicateRecords,  Path.Combine(AppConfiguration.DirectoryPathForDuplicatesFile, DuplicatesFileName));
         }
 
         await SaveRecordsInDatabase(recordsWithoutDuplicate, ChunkSize);
